@@ -1,0 +1,19 @@
+{
+	"name": "@pm2-dashboard/root",
+	"private": true,
+	"type": "module",
+	"packageManager": "pnpm@10.24.0",
+	"engines": {
+		"node": ">=22.0.0",
+		"pnpm": ">=10.0.0"
+	},
+	"scripts": {
+		"prepare": "husky",
+		"test": "pnpm -r run test"
+	},
+	"devDependencies": {
+		"@pm2-dashboard/dev-kit": "workspace:*",
+		"eslint": "~9.39.4",
+		"husky": "~9.1.7"
+	}
+}

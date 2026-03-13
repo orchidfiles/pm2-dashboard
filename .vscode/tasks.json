@@ -1,0 +1,93 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "dev-kit build",
+			"type": "shell",
+			"command": "pnpm run build",
+			"options": {
+				"cwd": "${workspaceFolder}/packages/dev-kit"
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "shared build-watch",
+			"type": "shell",
+			"command": "pnpm run build:watch",
+			"options": {
+				"cwd": "${workspaceFolder}/packages/shared"
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "api build-watch",
+			"type": "shell",
+			"command": "pnpm run build:watch",
+			"options": {
+				"cwd": "${workspaceFolder}/apps/api"
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "build-watch all",
+			"dependsOn": [
+				"dev-kit build",
+				"shared build-watch",
+				"api build-watch"
+			],
+			"group": "build",
+			"runOptions": {
+				"runOn": "default"
+			}
+		},
+		{
+			"label": "api start",
+			"type": "shell",
+			"command": "pnpm run start",
+			"options": {
+				"cwd": "${workspaceFolder}/apps/api"
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "web start",
+			"type": "shell",
+			"command": "pnpm run start",
+			"options": {
+				"cwd": "${workspaceFolder}/apps/web"
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "start all",
+			"dependsOn": [
+				"api start",
+				"web start"
+			],
+			"runOptions": {
+				"runOn": "default"
+			},
+			"problemMatcher": []
+		}
+	]
+}

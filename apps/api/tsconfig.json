@@ -1,0 +1,10 @@
+{
+	"extends": "@pm2-dashboard/dev-kit/tsconfig-base",
+	"compilerOptions": {
+		"baseUrl": "./",
+		"types": ["reflect-metadata", "node"],
+		"allowJs": true
+	},
+	"include": ["src", "eslint.config.mjs"],
+	"exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,31 @@
+{
+	"eslint.workingDirectories": [
+		"apps/api",
+		"apps/web",
+		"packages/shared",
+		"packages/dev-kit"
+	],
+	"files.exclude": {
+		"**/node_modules": true,
+		"**/dist": true,
+		"packages/shared/lib": true,
+		"packages/dev-kit/lib": true,
+		"**/pnpm-lock.yaml": true,
+		"**/.pnpm-store": true,
+		"**/*.tsbuildinfo": true
+	},
+	"search.exclude": {
+		"**/node_modules": true,
+		"**/dist": true,
+		"packages/shared/lib": true,
+		"packages/dev-kit/lib": true,
+		"**/pnpm-lock.yaml": true,
+		"**/.pnpm-store": true,
+		"**/*.tsbuildinfo": true
+	},
+	"search.useIgnoreFiles": true,
+	"svelte.enable-ts-plugin": true,
+	"workbench.editorAssociations": {
+		"*.svg": "default"
+	}
+}

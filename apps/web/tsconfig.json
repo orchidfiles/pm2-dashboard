@@ -1,0 +1,12 @@
+{
+	"extends": "@pm2-dashboard/dev-kit/tsconfig-base",
+	"compilerOptions": {
+		"baseUrl": "./",
+		"types": ["node", "vite/client"],
+		"verbatimModuleSyntax": true,
+		"allowJs": true,
+		"noEmit": true
+	},
+	"include": ["src", "vite.config.ts", "svelte.config.js", "eslint.config.mjs"],
+	"exclude": ["node_modules", "dist"]
+}

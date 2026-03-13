@@ -1,0 +1,28 @@
+{
+	"name": "@pm2-dashboard/api",
+	"type": "module",
+	"scripts": {
+		"start": "node -r source-map-support/register dist/index.js",
+		"build": "pnpm run build:compile && pnpm run build:postbuild",
+		"build:watch": "tsc-watch -p tsconfig.build.json --onCompilationComplete \"pnpm run build:postbuild\"",
+		"build:compile": "tsc -p tsconfig.build.json",
+		"build:postbuild": "tsc-alias -p tsconfig.build.json && node node_modules/@pm2-dashboard/dev-kit/src/fix-esm-imports.mjs dist",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix"
+	},
+	"dependencies": {
+		"@pm2-dashboard/shared": "workspace:*",
+		"express": "~5.1.0",
+		"pm2": "~6.0.5",
+		"source-map-support": "~0.5.21"
+	},
+	"devDependencies": {
+		"@pm2-dashboard/dev-kit": "workspace:*",
+		"@types/express": "~5.0.1",
+		"@types/node": "~22.0.0",
+		"reflect-metadata": "~0.2.2",
+		"tsc-alias": "~1.8.16",
+		"tsc-watch": "~6.2.1",
+		"typescript": "~5.7.0"
+	}
+}

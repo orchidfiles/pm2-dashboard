@@ -141,7 +141,7 @@ importers:
         specifier: ~5.5.5
         version: 5.5.5(eslint-config-prettier@10.1.8(eslint@9.39.4(jiti@2.6.1)))(eslint@9.39.4(jiti@2.6.1))(prettier@3.8.1)
       eslint-plugin-simple-import-sort:
-        specifier: ^12.1.1
+        specifier: ~12.1.1
         version: 12.1.1(eslint@9.39.4(jiti@2.6.1))
       eslint-plugin-sort-class-members:
         specifier: ~1.21.0

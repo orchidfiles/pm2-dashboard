@@ -33,6 +33,9 @@ const resolverSettings = {
 
 /** @type {PrettierOptions} */
 export const prettierOptions = {
+	htmlWhitespaceSensitivity: 'strict',
+	bracketSameLine: true,
+	singleAttributePerLine: true,
 	singleQuote: true,
 	trailingComma: 'none',
 	bracketSpacing: true,

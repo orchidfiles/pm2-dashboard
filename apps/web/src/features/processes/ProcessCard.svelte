@@ -1,13 +1,28 @@
 <script lang="ts">
 import { ProcessFormatter } from '$shared/formatters/process';
 
-import type { Process } from '$shared/types/processes';
+import ProcessActions from './ProcessActions.svelte';
+
+import type { Process, ProcessAction } from '$shared/types/processes';
 
 interface Props {
 	process: Process;
+	onAction: (id: number, action: ProcessAction) => Promise<void>;
 }
 
-let { process: proc }: Props = $props();
+let { process: proc, onAction }: Props = $props();
+
+let actionLoading = $state(false);
+
+async function handleAction(action: ProcessAction) {
+	actionLoading = true;
+
+	try {
+		await onAction(proc.id, action);
+	} finally {
+		actionLoading = false;
+	}
+}
 </script>
 
 <div class="card preset-tonal-surface border border-surface-700/30 p-5 flex flex-col gap-4">
@@ -24,8 +39,8 @@ let { process: proc }: Props = $props();
 	<div class="grid grid-cols-2 gap-3">
 		<div class="card preset-filled-surface-800 p-3 rounded-lg flex flex-col gap-1">
 			<span class="text-[10px] uppercase tracking-widest text-surface-400 font-medium">CPU</span>
-			<span class="text-lg font-semibold tabular-nums">{proc.cpu ?? 0}<span class="text-xs text-surface-400 ml-0.5">%</span></span
-			>
+			<span class="text-lg font-semibold tabular-nums"
+				>{proc.cpu ?? 0}<span class="text-xs text-surface-400 ml-0.5">%</span></span>
 		</div>
 		<div class="card preset-filled-surface-800 p-3 rounded-lg flex flex-col gap-1">
 			<span class="text-[10px] uppercase tracking-widest text-surface-400 font-medium">Memory</span>
@@ -40,4 +55,9 @@ let { process: proc }: Props = $props();
 			<span class="text-lg font-semibold tabular-nums">{proc.restarts ?? 0}</span>
 		</div>
 	</div>
+
+	<ProcessActions
+		status={proc.status}
+		loading={actionLoading}
+		onAction={handleAction} />
 </div>

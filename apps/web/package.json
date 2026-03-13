@@ -9,6 +9,9 @@
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix"
 	},
+	"dependencies": {
+		"@pm2-dashboard/shared": "workspace:*"
+	},
 	"devDependencies": {
 		"@iconify-json/lucide": "~1.2.97",
 		"@pm2-dashboard/dev-kit": "workspace:*",
@@ -24,8 +27,5 @@
 		"typescript": "~5.7.0",
 		"unplugin-icons": "~23.0.1",
 		"vite": "~8.0.0"
-	},
-	"dependencies": {
-		"@pm2-dashboard/shared": "workspace:*"
 	}
 }

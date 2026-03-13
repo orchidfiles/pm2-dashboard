@@ -1,3 +1,5 @@
+export type ProcessAction = 'start' | 'stop' | 'restart';
+
 export interface Process {
 	id: number;
 	name: string;

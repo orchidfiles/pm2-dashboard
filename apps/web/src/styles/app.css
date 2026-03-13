@@ -3,3 +3,5 @@
 @import "@skeletonlabs/skeleton";
 @import "@skeletonlabs/skeleton-svelte";
 @import "@skeletonlabs/skeleton/themes/wintry";
+
+@import "./utilities.css";

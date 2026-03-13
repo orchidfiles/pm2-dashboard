@@ -58,5 +58,5 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 # Environment files
-infra/env
+infra/env/*
 !infra/env/*.example

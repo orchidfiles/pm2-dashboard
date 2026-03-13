@@ -2,6 +2,12 @@
 	"extends": "@pm2-dashboard/dev-kit/tsconfig-base",
 	"compilerOptions": {
 		"baseUrl": "./",
+		"paths": {
+			"$shared/*": ["src/shared/*"],
+			"$components/*": ["src/components/*"],
+			"$features/*": ["src/features/*"],
+			"$layouts/*": ["src/layouts/*"]
+		},
 		"types": ["node", "vite/client"],
 		"verbatimModuleSyntax": true,
 		"allowJs": true,

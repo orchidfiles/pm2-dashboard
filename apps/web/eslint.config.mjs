@@ -4,5 +4,17 @@ import svelteConfig from './svelte.config.js';
 
 export default createSvelteEslintConfig({
 	projectRoot: import.meta.dirname,
-	svelteConfig
+	svelteConfig,
+	alias: {
+		'$shared/*': ['./src/shared/*'],
+		'$components/*': ['./src/components/*'],
+		'$features/*': ['./src/features/*'],
+		'$layouts/*': ['./src/layouts/*']
+	},
+	additionalRules: {
+		'import-x/no-unresolved': ['error', { ignore: ['^virtual:icons/'] }]
+	},
+	additionalSvelteRules: {
+		'import-x/no-unresolved': ['error', { ignore: ['^virtual:icons/'] }]
+	}
 });

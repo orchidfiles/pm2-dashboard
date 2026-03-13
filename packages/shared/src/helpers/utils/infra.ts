@@ -7,14 +7,9 @@ export class Infra {
 	static loadEnv() {
 		process.env.NODE_ENV ??= 'development';
 
-		const infraRoot = this.findInfraRoot();
-
-		if (!infraRoot) {
-			throw new Error(`infra/env not found near: ${process.cwd()}`);
-		}
-
+		const envDir = this.findInfraEnvDir();
 		const envFile = process.env.NODE_ENV === 'test' ? '.env.test' : '.env.local';
-		const envPath = path.join(infraRoot, 'env', envFile);
+		const envPath = path.join(envDir, envFile);
 
 		if (!fs.existsSync(envPath)) {
 			throw new Error(`Env file not found: ${envPath}`);
@@ -23,19 +18,19 @@ export class Infra {
 		config({ path: envPath });
 	}
 
-	private static findInfraRoot(): string | null {
+	static findInfraEnvDir(): string {
 		let dir = process.cwd();
 
 		for (let i = 0; i < 5; i++) {
 			const candidate = path.resolve(dir, 'infra', 'env');
 
 			if (fs.existsSync(candidate)) {
-				return path.resolve(dir, 'infra');
+				return candidate;
 			}
 
 			dir = path.dirname(dir);
 		}
 
-		return null;
+		throw new Error(`infra/env not found near: ${process.cwd()}`);
 	}
 }

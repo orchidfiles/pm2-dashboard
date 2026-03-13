@@ -7,6 +7,7 @@ import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
 import eslintPluginImportX from 'eslint-plugin-import-x';
 import prettier from 'eslint-plugin-prettier';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import sortClassMembers from 'eslint-plugin-sort-class-members';
 import svelte from 'eslint-plugin-svelte';
 import globals from 'globals';
@@ -24,6 +25,22 @@ import { defaultIgnores, prettierOptions, prettierPluginSveltePath, prettierPlug
 
 /** @type {string[]} */
 const svelteIgnores = ['build', 'static', '.svelte-kit', 'pnpm-lock.yaml'];
+
+const svelteSideEffectImportGroups = ['^\\u0000'];
+const sveltePackageImportGroups = ['^node:(?!.*\\u0000$)', '^@?\\w(?!.*\\u0000$)'];
+const svelteAliasImportGroups = ['^\\$(?!.*\\u0000$)'];
+const svelteParentImportGroups = ['^\\.\\.(?!/?$)(?!.*\\u0000$)', '^\\.\\./?$(?!.*\\u0000$)'];
+const svelteSiblingImportGroups = ['^\\./(?=.*/)(?!/?$)(?!.*\\u0000$)', '^\\.(?!/?$)(?!.*\\u0000$)', '^\\./?$(?!.*\\u0000$)'];
+const svelteTypeImportGroups = ['\\u0000$'];
+
+const svelteImportSortGroups = [
+	svelteSideEffectImportGroups,
+	sveltePackageImportGroups,
+	svelteAliasImportGroups,
+	svelteParentImportGroups,
+	svelteSiblingImportGroups,
+	svelteTypeImportGroups
+];
 
 /** @type {RulesRecord} */
 const htmlRules = {
@@ -79,7 +96,8 @@ export const createSvelteEslintConfig = ({
 	tsconfigPath = './tsconfig.json',
 	alias = {},
 	extraIgnores = [],
-	additionalRules = {}
+	additionalRules = {},
+	additionalSvelteRules = {}
 } = {}) => {
 	if (!svelteConfig) {
 		throw new Error('createSvelteEslintConfig requires the svelteConfig option');
@@ -137,6 +155,13 @@ export const createSvelteEslintConfig = ({
 		...rules,
 		...htmlRules,
 		...svelteOnlyRules,
+	'simple-import-sort/imports': [
+		'error',
+		{
+			groups: svelteImportSortGroups
+		}
+	],
+	'simple-import-sort/exports': 'error',
 		'prettier/prettier': [
 			'error',
 			{
@@ -152,7 +177,8 @@ export const createSvelteEslintConfig = ({
 		// Disable conflicting rules for Svelte files
 		indent: 0,
 		'@stylistic/indent': 0,
-		'@stylistic/indent-legacy': 0
+		'@stylistic/indent-legacy': 0,
+		...additionalSvelteRules
 	};
 
 	return tseslint.config(
@@ -173,7 +199,8 @@ export const createSvelteEslintConfig = ({
 				languageOptions: commonTSLanguageOptions,
 				settings: resolverConfig,
 				plugins: {
-					prettier: prettier
+					prettier: prettier,
+					'simple-import-sort': simpleImportSort
 				},
 				rules: mergedRules
 			},
@@ -182,7 +209,8 @@ export const createSvelteEslintConfig = ({
 				languageOptions: commonSvelteLanguageOptions,
 				settings: resolverConfig,
 				plugins: {
-					prettier: prettier
+					prettier: prettier,
+					'simple-import-sort': simpleImportSort
 				},
 				rules: mergedSvelteRules
 			},

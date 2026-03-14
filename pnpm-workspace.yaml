@@ -1,5 +1,6 @@
 packages:
   - 'apps/*'
   - 'packages/*'
+  - '!packages/pm2-dashboard'
 onlyBuiltDependencies:
   - esbuild

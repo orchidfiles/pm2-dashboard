@@ -8,9 +8,10 @@
 		"pnpm": ">=10.0.0"
 	},
 	"scripts": {
-		"prepare": "husky",
+		"package:build": "bash scripts/build-package.sh",
 		"lint:fix": "pnpm -r --parallel run lint:fix",
-		"test": "pnpm -r run test"
+		"test": "pnpm -r run test",
+		"prepare": "husky"
 	},
 	"devDependencies": {
 		"@pm2-dashboard/dev-kit": "workspace:*",

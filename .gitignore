@@ -9,6 +9,14 @@ build/
 .tmp/
 *.tsbuildinfo
 
+# Package build artifacts
+/packages/pm2-dashboard/dist/
+/packages/pm2-dashboard/node_modules/
+/packages/pm2-dashboard/package-lock.json
+/packages/pm2-dashboard/*.tgz
+/packages/pm2-dashboard/LICENSE
+/packages/pm2-dashboard/README.md
+
 # Cache directories
 .vite/
 .cache/

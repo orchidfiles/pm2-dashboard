@@ -1,0 +1,47 @@
+{
+  "name": "pm2-dashboard",
+  "version": "0.1.0",
+  "description": "Self-hosted web dashboard for PM2",
+  "keywords": [
+    "pm2",
+    "dashboard",
+    "monitoring",
+    "self-hosted",
+    "logs",
+    "metrics"
+  ],
+  "homepage": "https://github.com/orchidfiles/pm2-dashboard#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orchidfiles/pm2-dashboard"
+  },
+  "bugs": {
+    "url": "https://github.com/orchidfiles/pm2-dashboard/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "orchidfiles",
+    "email": "orchid@orchidfiles.com",
+    "url": "https://orchidfiles.com"
+  },
+  "preferGlobal": true,
+  "type": "module",
+  "bin": {
+    "pm2-dashboard": "./bin/pm2-dashboard.js"
+  },
+  "files": [
+    "bin/",
+    "dist/"
+  ],
+  "scripts": {
+    "release": "npm publish --access public"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "dependencies": {
+    "commander": "14.0.3",
+    "express": "5.1.0",
+    "pm2": "6.0.14"
+  }
+}

@@ -2,8 +2,15 @@
 	"extends": "@pm2-dashboard/dev-kit/tsconfig-base",
 	"compilerOptions": {
 		"baseUrl": "./",
-		"types": ["reflect-metadata", "node"],
-		"allowJs": true
+		"paths": {
+			"src/*": ["./src/*"],
+			"enums": ["./src/common/enums/index.ts"],
+			"enums/*": ["./src/common/enums/*"],
+			"common/*": ["./src/common/*"],
+			"core/*": ["./src/common/core/*"],
+			"modules/*": ["./src/modules/*"]
+		},
+		"types": ["reflect-metadata", "node"]
 	},
 	"include": ["src", "eslint.config.mjs"],
 	"exclude": ["node_modules", "dist"]

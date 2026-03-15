@@ -1,4 +1,4 @@
-import type { Process, ProcessAction } from '$shared/types/processes';
+import type { Process, ProcessAction } from '@pm2-dashboard/shared';
 
 interface ApiErrorBody {
 	error?: string;

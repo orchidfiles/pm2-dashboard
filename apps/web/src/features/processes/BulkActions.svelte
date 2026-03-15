@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { ProcessAction } from '$shared/types/processes';
+import type { ProcessAction } from '@pm2-dashboard/shared';
 
 interface Props {
 	loading: boolean;

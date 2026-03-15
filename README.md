@@ -1,5 +1,10 @@
 # pm2-dashboard
 
+[![npm version](https://img.shields.io/npm/v/pm2-dashboard)](https://www.npmjs.com/package/pm2-dashboard)
+[![npm downloads per month](https://img.shields.io/npm/dm/pm2-dashboard)](https://www.npmjs.com/package/pm2-dashboard)
+[![node version](https://img.shields.io/node/v/pm2-dashboard)](https://nodejs.org)
+[![license](https://img.shields.io/npm/l/pm2-dashboard)](./LICENSE)
+
 Self-hosted web dashboard for PM2. Installs as an npm package, runs on the same server as PM2. No cloud, no subscriptions.
 
 > Until version 1.0.0, this project is under active development. Use it locally for evaluation, not on production servers.
@@ -108,4 +113,5 @@ MIT
 
 ---
 
-> Made by the author of [orchidfiles.com](https://orchidfiles.com) — essays from inside startups. If you found this extension useful, you'll probably enjoy the essays.
+Made by the author of [orchidfiles.com](https://orchidfiles.com) — essays from inside startups.  
+If you found `pm2-dashboard` useful, you'll probably enjoy the essays.

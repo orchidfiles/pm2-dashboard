@@ -68,3 +68,6 @@ vite.config.ts.timestamp-*
 # Environment files
 infra/env/*
 !infra/env/*.example
+
+# Local dev data
+infra/data/

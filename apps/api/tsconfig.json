@@ -12,6 +12,6 @@
 		},
 		"types": ["reflect-metadata", "node"]
 	},
-	"include": ["src", "eslint.config.mjs"],
+	"include": ["src", "tests", "eslint.config.mjs", "drizzle.config.ts"],
 	"exclude": ["node_modules", "dist"]
 }

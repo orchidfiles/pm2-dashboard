@@ -1,6 +1,7 @@
 packages:
   - 'apps/*'
   - 'packages/*'
+  - 'scripts'
   - '!packages/pm2-dashboard'
 onlyBuiltDependencies:
   - better-sqlite3

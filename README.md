@@ -4,6 +4,7 @@
 [![npm downloads per month](https://img.shields.io/npm/dm/pm2-dashboard)](https://www.npmjs.com/package/pm2-dashboard)
 [![node version](https://img.shields.io/node/v/pm2-dashboard)](https://nodejs.org)
 [![license](https://img.shields.io/npm/l/pm2-dashboard)](./LICENSE)
+[![last commit](https://img.shields.io/github/last-commit/orchidfiles/pm2-dashboard)](https://github.com/orchidfiles/pm2-dashboard)
 
 Self-hosted web dashboard for PM2. Installs as an npm package, runs on the same server as PM2. No cloud, no subscriptions.
 

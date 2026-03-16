@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { validateSync } from 'class-validator';
+import { millisecondsInDay } from 'date-fns/constants';
 
 import { EnvVariables } from './env.config';
 
@@ -27,5 +28,9 @@ export class AppConfigService {
 
 	get config(): EnvVariables {
 		return this.envConfig;
+	}
+
+	get sessionMaxAgeMs(): number {
+		return 30 * millisecondsInDay;
 	}
 }

@@ -16,6 +16,7 @@
 	"devDependencies": {
 		"@pm2-dashboard/dev-kit": "workspace:*",
 		"eslint": "~9.39.4",
-		"husky": "~9.1.7"
+		"husky": "~9.1.7",
+		"tsx": "~4.21.0"
 	}
 }

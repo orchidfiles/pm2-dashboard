@@ -1,7 +1,7 @@
 <script lang="ts">
 import { onMount } from 'svelte';
 
-import { bulkAction, fetchProcesses, performAction } from '$shared/api/processes.api';
+import { api } from '$shared/api';
 
 import BulkActions from './BulkActions.svelte';
 import ProcessGrid from './ProcessGrid.svelte';
@@ -15,7 +15,7 @@ let bulkLoading = $state(false);
 
 async function loadProcesses() {
 	try {
-		processes = await fetchProcesses();
+		processes = await api.processes.fetchProcesses();
 		error = null;
 	} catch (e) {
 		error = e instanceof Error ? e.message : 'Unknown error';
@@ -25,7 +25,7 @@ async function loadProcesses() {
 }
 
 async function handleAction(id: number, action: ProcessAction) {
-	await performAction(id, action);
+	await api.processes.performAction(id, action);
 	await loadProcesses();
 }
 
@@ -33,9 +33,7 @@ async function handleBulkAction(action: ProcessAction) {
 	bulkLoading = true;
 
 	try {
-		const ids = processes.map((p) => p.id);
-
-		await bulkAction(ids, action);
+		await api.processes.bulkAction(action);
 		await loadProcesses();
 	} finally {
 		bulkLoading = false;

@@ -1,5 +1,3 @@
-export type ProcessAction = 'start' | 'stop' | 'restart';
-
 export interface Process {
 	id: number;
 	name: string;
@@ -8,4 +6,9 @@ export interface Process {
 	memory: number;
 	uptime: number;
 	restarts: number;
+}
+
+export interface BulkError {
+	id: number;
+	error: string;
 }

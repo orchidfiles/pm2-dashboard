@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { ProcessAction } from '@pm2-dashboard/shared';
+import { ProcessAction } from '@pm2-dashboard/shared';
 
 interface Props {
 	status: string;
@@ -15,7 +15,7 @@ let { status, loading, onAction }: Props = $props();
 		<button
 			class="btn btn-sm preset-filled-surface-700"
 			disabled={loading}
-			onclick={() => onAction('start')}>
+			onclick={() => onAction(ProcessAction.Start)}>
 			Start
 		</button>
 	{/if}
@@ -24,7 +24,7 @@ let { status, loading, onAction }: Props = $props();
 		<button
 			class="btn btn-sm preset-filled-surface-700"
 			disabled={loading}
-			onclick={() => onAction('stop')}>
+			onclick={() => onAction(ProcessAction.Stop)}>
 			Stop
 		</button>
 	{/if}
@@ -32,7 +32,7 @@ let { status, loading, onAction }: Props = $props();
 	<button
 		class="btn btn-sm preset-filled-surface-700"
 		disabled={loading}
-		onclick={() => onAction('restart')}>
+		onclick={() => onAction(ProcessAction.Restart)}>
 		Restart
 	</button>
 </div>

@@ -4,7 +4,7 @@ export default [
 	...base,
 	{
 		settings: {
-			'import-x/internal-regex': '^(src|enums|common|core|modules)(/|$)'
+			'import-x/internal-regex': '^(@pm2-dashboard|src|enums|common|core|modules)(/|$)'
 		},
 		languageOptions: {
 			parserOptions: {

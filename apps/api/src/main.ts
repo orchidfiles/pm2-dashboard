@@ -1,46 +1,66 @@
 import 'reflect-metadata';
 
-import { ValidationPipe } from '@nestjs/common';
-import { NestFactory, Reflector } from '@nestjs/core';
+import { Logger } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { Infra } from '@pm2-dashboard/shared';
 
-import { AllExceptionsFilter } from 'common/filters/all-exception.filter';
-import { CustomSerializerInterceptor } from 'common/interceptors/custom-serializer.interceptor';
-import { NullFieldsInterceptor } from 'common/interceptors/null-fields.interceptor';
+import { Infra } from '@pm2-dashboard/shared';
 import { AppConfigService } from 'core/app-config/app-config.service';
+import { AppSettingsService } from 'core/app-settings/app-settings.module';
+import { SqliteSessionStore } from 'src/database';
 
 import { AppModule } from './app.module';
+import { AppBootstrap } from './bootstrap';
 
 Infra.loadEnv();
 
-async function bootstrap() {
-	const app = await NestFactory.create<NestExpressApplication>(AppModule);
-	const configService = app.get<AppConfigService>(AppConfigService);
-	const reflector = app.get(Reflector);
+class Application {
+	private app: NestExpressApplication;
+	private configService: AppConfigService;
+	private appSettings: AppSettingsService;
+	private readonly logger = new Logger(Application.name);
 
-	app.setGlobalPrefix('api');
+	public async initialize() {
+		try {
+			this.app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-	app.useGlobalFilters(new AllExceptionsFilter(configService));
-	app.useGlobalInterceptors(new CustomSerializerInterceptor(reflector));
-	app.useGlobalInterceptors(new NullFieldsInterceptor());
-	app.useGlobalPipes(
-		new ValidationPipe({
-			whitelist: true,
-			forbidNonWhitelisted: true,
-			transform: true
-		})
-	);
+			this.configService = this.app.get(AppConfigService);
+			this.appSettings = this.app.get(AppSettingsService);
 
-	const port = configService.config.API_PORT;
-	const host = configService.config.APP_HOST;
+			const secret = this.appSettings.getSessionSecret();
 
-	await app.listen(port, host);
+			AppBootstrap.configureSession(this.app, this.configService, this.app.get(SqliteSessionStore), secret);
+			AppBootstrap.configureApp(this.app, this.configService);
 
-	console.log(`pm2-dashboard api listening on http://${host}:${port}`);
+			await this.startServer();
+		} catch (err: unknown) {
+			this.logger.error('Failed to start application', err);
+
+			process.exit(1);
+		}
+	}
+
+	private async startServer() {
+		const port = this.configService.config.API_PORT;
+		const host = this.configService.config.APP_HOST;
+
+		await this.app.listen(port, host);
+
+		this.logger.log(`pm2-dashboard api listening on http://${host}:${port}`);
+
+		this.logSetupUrl(port, host);
+	}
+
+	private logSetupUrl(port: number, host: string) {
+		if (this.appSettings.isSetupCompleted()) {
+			return;
+		}
+
+		const setupToken = this.appSettings.getSetupToken();
+		const displayHost = host === '0.0.0.0' ? 'localhost' : host;
+
+		this.logger.log(`Setup URL: http://${displayHost}:${port}/setup?token=${setupToken}`);
+	}
 }
 
-bootstrap().catch((err) => {
-	console.error(err);
-	process.exit(1);
-});
+void new Application().initialize();

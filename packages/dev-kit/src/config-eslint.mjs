@@ -10,6 +10,8 @@ import globals from 'globals';
 import { createRequire } from 'node:module';
 import tseslint from 'typescript-eslint';
 
+import { noAwaitInParens } from './eslint-rules/no-await-in-parens.mjs';
+
 const require = createRequire(import.meta.url);
 
 export const prettierPluginTailwindcssPath = require.resolve('prettier-plugin-tailwindcss');
@@ -62,6 +64,7 @@ export const rules = {
 		{ blankLine: 'any', prev: 'import', next: 'import' }
 	],
 
+	'@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
 	'@typescript-eslint/no-empty-function': 'off',
 	'@typescript-eslint/no-unsafe-return': 'off',
 	'@typescript-eslint/no-unsafe-assignment': 'off',
@@ -89,7 +92,8 @@ export const rules = {
 			ignoreRegExpLiterals: true
 		}
 	],
-	'@stylistic/multiline-comment-style': 'off'
+	'@stylistic/multiline-comment-style': 'off',
+	'@stylistic/no-extra-parens': ['error', 'all', { nestedBinaryExpressions: false, enforceForArrowConditionals: false }]
 };
 
 /** @type {EslintConfig['languageOptions']} */
@@ -133,7 +137,7 @@ export default defineConfig(
 	stylistic.configs.all,
 	globalIgnores(defaultIgnores),
 	{
-		plugins: { prettier, vitest },
+		plugins: { prettier, vitest, local: { rules: { 'no-await-in-parens': noAwaitInParens } } },
 		files: ['**/*.{ts,js,mjs}'],
 		settings: resolverSettings,
 		languageOptions,
@@ -144,7 +148,9 @@ export default defineConfig(
 
 			'vitest/no-commented-out-tests': 'off',
 			'vitest/valid-title': 'off',
-			'vitest/max-nested-describe': ['error', { max: 3 }]
+			'vitest/max-nested-describe': ['error', { max: 3 }],
+
+			'local/no-await-in-parens': 'error'
 		}
 	},
 	{

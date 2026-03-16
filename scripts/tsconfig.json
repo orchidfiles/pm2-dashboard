@@ -1,0 +1,9 @@
+{
+	"extends": "@pm2-dashboard/dev-kit/tsconfig-base",
+	"compilerOptions": {
+		"baseUrl": "./",
+		"types": ["node"]
+	},
+	"include": ["**/*.ts", "eslint.config.mjs"],
+	"exclude": ["node_modules"]
+}

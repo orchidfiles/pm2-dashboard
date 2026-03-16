@@ -3,7 +3,7 @@ import { promisify } from 'util';
 import { Injectable } from '@nestjs/common';
 import pm2 from 'pm2';
 
-import type { Process, ProcessAction } from '@pm2-dashboard/shared';
+import { ProcessAction, type Process } from '@pm2-dashboard/shared';
 
 const connect = promisify(pm2.connect.bind(pm2));
 const disconnect = pm2.disconnect.bind(pm2);
@@ -14,9 +14,9 @@ const stopRaw = promisify(pm2.stop.bind(pm2)) as (id: string) => Promise<unknown
 const restartRaw = promisify(pm2.restart.bind(pm2)) as (id: string) => Promise<unknown>;
 
 const actionMap: Record<ProcessAction, (id: string) => Promise<unknown>> = {
-	start: startRaw,
-	stop: stopRaw,
-	restart: restartRaw
+	[ProcessAction.Start]: startRaw,
+	[ProcessAction.Stop]: stopRaw,
+	[ProcessAction.Restart]: restartRaw
 };
 
 @Injectable()
@@ -52,5 +52,11 @@ export class ProcessesService {
 		} finally {
 			disconnect();
 		}
+	}
+
+	async runAll(action: ProcessAction): Promise<void> {
+		const processes = await this.list();
+
+		await Promise.all(processes.map((p) => this.runAction(action, p.id)));
 	}
 }

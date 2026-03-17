@@ -8,7 +8,7 @@
 		"pnpm": ">=10.0.0"
 	},
 	"scripts": {
-		"package:build": "bash scripts/build-package.sh",
+		"package:build": "bash scripts/build-package/build-package.sh",
 		"lint:fix": "pnpm -r --parallel run lint:fix",
 		"test": "pnpm -r run test",
 		"prepare": "husky"

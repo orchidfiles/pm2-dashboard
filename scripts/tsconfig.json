@@ -4,6 +4,6 @@
 		"baseUrl": "./",
 		"types": ["node"]
 	},
-	"include": ["**/*.ts", "eslint.config.mjs"],
+	"include": ["**/*.ts", "**/*.mjs"],
 	"exclude": ["node_modules"]
 }

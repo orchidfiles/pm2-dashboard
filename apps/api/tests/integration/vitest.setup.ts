@@ -18,7 +18,7 @@ import { AppBootstrap } from 'src/bootstrap';
 import { schema } from 'src/database/schema';
 import { SqliteSessionStore } from 'src/database/sqlite-session.store';
 
-const migrationsFolder = join(import.meta.dirname, '../../src/database/migrations');
+const migrationsFolder = join(import.meta.dirname, '../../drizzle');
 
 let sqliteDb: InstanceType<typeof Database>;
 let drizzleDb: DrizzleDb;

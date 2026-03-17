@@ -7,10 +7,9 @@ import { SetupDto } from './auth.dto';
 import { AuthService } from './auth.service';
 import { SetupGuard } from './setup.guard';
 
-import type { ActionResult, CheckTokenResult } from '@pm2-dashboard/shared';
+import type { ActionResult, CheckTokenResult, SetupStatusResult } from '@pm2-dashboard/shared';
 import type { Request } from 'express';
 
-@UseGuards(SetupGuard)
 @Controller('setup')
 export class SetupController {
 	constructor(
@@ -18,7 +17,15 @@ export class SetupController {
 		@Inject(AppSettingsService) private readonly appSettings: AppSettingsService
 	) {}
 
+	@Get('status')
+	getStatus(): SetupStatusResult {
+		const result: SetupStatusResult = { completed: this.appSettings.isSetupCompleted() };
+
+		return result;
+	}
+
 	@Get()
+	@UseGuards(SetupGuard)
 	checkToken(@Query('token', UuidPipe) token: string): CheckTokenResult {
 		const valid = this.appSettings.isValidSetupToken(token);
 
@@ -29,6 +36,7 @@ export class SetupController {
 
 	@Post()
 	@HttpCode(200)
+	@UseGuards(SetupGuard)
 	async completeSetup(
 		@Body() body: SetupDto,
 		@Query('token', UuidPipe) token: string,

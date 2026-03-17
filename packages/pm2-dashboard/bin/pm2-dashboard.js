@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { Command, InvalidArgumentError } from 'commander';
 import express from 'express';
 
-import { app } from '../dist/api/app.js';
+import { createApp } from '../dist/api/app.js';
 
 class RuntimeConfig {
 	static resolveConfig() {
@@ -45,8 +45,6 @@ class RuntimeConfig {
 }
 
 const currentDir = dirname(fileURLToPath(import.meta.url));
-app.use(express.static(join(currentDir, '../dist/web')));
-
 const config = RuntimeConfig.resolveConfig();
 
 const program = new Command();
@@ -54,13 +52,43 @@ program.name('pm2-dashboard');
 program.description('Self-hosted web dashboard for PM2');
 program.option('--port <port>', 'Port to listen on', RuntimeConfig.parsePort, config.port);
 program.option('--host <host>', 'Host interface to bind', RuntimeConfig.parseHost, config.host);
+program.option('--db <path>', 'Path to SQLite database file');
 program.parse();
 
 const options = program.opts();
 
-app.listen(options.port, options.host, () => {
-	console.log(`pm2-dashboard listening on http://${options.host}:${options.port}`);
-}).on('error', (err) => {
-	console.error(`Failed to start: ${err.message}`);
-	process.exit(1);
+process.env.API_PORT = String(options.port);
+process.env.APP_HOST = options.host;
+process.env.NODE_ENV = 'production';
+
+if (options.db) {
+	process.env.DB_PATH = options.db;
+}
+
+const { app, configService, appSettings } = await createApp();
+
+const webDistPath = join(currentDir, '../dist/web');
+
+app.use(express.static(webDistPath));
+app.use((req, res, next) => {
+	if (req.path.startsWith('/api')) {
+		next();
+		return;
+	}
+
+	res.sendFile(join(webDistPath, 'index.html'));
 });
+
+const port = configService.config.API_PORT;
+const host = configService.config.APP_HOST;
+
+await app.listen(port, host);
+
+console.log(`pm2-dashboard listening on http://${host}:${port}`);
+
+if (!appSettings.isSetupCompleted()) {
+	const setupToken = appSettings.getSetupToken();
+	const displayHost = host === '0.0.0.0' || host === '127.0.0.1' ? 'localhost' : host;
+
+	console.log(`Setup URL: http://${displayHost}:${port}/setup?token=${setupToken}`);
+}

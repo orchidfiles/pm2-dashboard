@@ -1,5 +1,6 @@
+import { mkdirSync } from 'fs';
 import { homedir } from 'os';
-import { join } from 'path';
+import { dirname, join } from 'path';
 
 import { Inject, Injectable } from '@nestjs/common';
 import BetterSqlite3, { type Database as DatabaseType } from 'better-sqlite3';
@@ -11,7 +12,7 @@ import { schema } from 'src/database/schema';
 
 export type DrizzleDb = BetterSQLite3Database<typeof schema>;
 
-const MIGRATIONS_PATH = join(import.meta.dirname, '../../../database/migrations');
+const MIGRATIONS_PATH = join(import.meta.dirname, '../../../../drizzle');
 
 @Injectable()
 export class DrizzleService {
@@ -20,6 +21,8 @@ export class DrizzleService {
 
 	constructor(@Inject(AppConfigService) configService: AppConfigService) {
 		const dbPath = configService.config.DB_PATH || join(homedir(), '.pm2-dashboard', 'data.db');
+
+		mkdirSync(dirname(dbPath), { recursive: true });
 
 		this.sqlite = new BetterSqlite3(dbPath);
 		this.db = drizzle(this.sqlite, { schema, casing: 'snake_case' });

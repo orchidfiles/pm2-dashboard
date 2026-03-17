@@ -4,7 +4,7 @@ import Spinner from '$components/ui/Spinner.svelte';
 
 import ProcessCard from './ProcessCard.svelte';
 
-import type { Process, ProcessAction } from '@pm2-dashboard/shared';
+import type { Process, ProcessAction } from '@pm2-dashboard/shared/frontend';
 
 interface Props {
 	processes: Process[];

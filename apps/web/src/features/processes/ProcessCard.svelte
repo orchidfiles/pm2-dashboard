@@ -3,7 +3,7 @@ import { ProcessFormatter } from '$shared/formatters/process';
 
 import ProcessActions from './ProcessActions.svelte';
 
-import type { Process, ProcessAction } from '@pm2-dashboard/shared';
+import type { Process, ProcessAction } from '@pm2-dashboard/shared/frontend';
 
 interface Props {
 	process: Process;

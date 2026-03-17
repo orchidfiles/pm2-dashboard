@@ -5,7 +5,7 @@ export class LoginDto {
 	username: string;
 
 	@IsString()
-	@MinLength(8)
+	@MinLength(5)
 	password: string;
 }
 
@@ -15,6 +15,6 @@ export class SetupDto {
 	username: string;
 
 	@IsString()
-	@MinLength(6)
+	@MinLength(5)
 	password: string;
 }

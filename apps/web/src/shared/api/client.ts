@@ -1,6 +1,7 @@
 interface ApiErrorBody {
 	message?: string;
 	error?: string;
+	errors?: string[];
 }
 
 export class ApiClient {
@@ -51,7 +52,7 @@ export class ApiClient {
 	private static async buildError(res: Response): Promise<Error> {
 		const json = await res.json().catch(() => ({}));
 		const body = json as ApiErrorBody;
-		const message = body.message ?? body.error ?? `HTTP ${res.status}`;
+		const message = body.errors?.[0] ?? body.message ?? body.error ?? `HTTP ${res.status}`;
 
 		return new Error(message);
 	}

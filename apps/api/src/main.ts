@@ -1,66 +1,28 @@
-import 'reflect-metadata';
-
 import { Logger } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-import { NestExpressApplication } from '@nestjs/platform-express';
 
-import { Infra } from '@pm2-dashboard/shared';
-import { AppConfigService } from 'core/app-config/app-config.service';
-import { AppSettingsService } from 'core/app-settings/app-settings.module';
-import { SqliteSessionStore } from 'src/database';
+import { createApp } from './app';
 
-import { AppModule } from './app.module';
-import { AppBootstrap } from './bootstrap';
+const logger = new Logger('Application');
 
-Infra.loadEnv();
+try {
+	const { app, configService, appSettings } = await createApp();
 
-class Application {
-	private app: NestExpressApplication;
-	private configService: AppConfigService;
-	private appSettings: AppSettingsService;
-	private readonly logger = new Logger(Application.name);
+	const port = configService.config.API_PORT;
+	const host = configService.config.APP_HOST;
 
-	public async initialize() {
-		try {
-			this.app = await NestFactory.create<NestExpressApplication>(AppModule);
+	await app.listen(port, host);
 
-			this.configService = this.app.get(AppConfigService);
-			this.appSettings = this.app.get(AppSettingsService);
+	logger.log(`pm2-dashboard api listening on http://${host}:${port}`);
 
-			const secret = this.appSettings.getSessionSecret();
+	if (!appSettings.isSetupCompleted()) {
+		const setupToken = appSettings.getSetupToken();
+		const displayHost = host === '0.0.0.0' || host === '127.0.0.1' ? 'localhost' : host;
+		const webPort = configService.config.WEB_PORT || port;
 
-			AppBootstrap.configureSession(this.app, this.configService, this.app.get(SqliteSessionStore), secret);
-			AppBootstrap.configureApp(this.app, this.configService);
-
-			await this.startServer();
-		} catch (err: unknown) {
-			this.logger.error('Failed to start application', err);
-
-			process.exit(1);
-		}
+		logger.log(`Setup URL: http://${displayHost}:${webPort}/setup?token=${setupToken}`);
 	}
+} catch (err: unknown) {
+	logger.error('Failed to start application', err);
 
-	private async startServer() {
-		const port = this.configService.config.API_PORT;
-		const host = this.configService.config.APP_HOST;
-
-		await this.app.listen(port, host);
-
-		this.logger.log(`pm2-dashboard api listening on http://${host}:${port}`);
-
-		this.logSetupUrl(port, host);
-	}
-
-	private logSetupUrl(port: number, host: string) {
-		if (this.appSettings.isSetupCompleted()) {
-			return;
-		}
-
-		const setupToken = this.appSettings.getSetupToken();
-		const displayHost = host === '0.0.0.0' ? 'localhost' : host;
-
-		this.logger.log(`Setup URL: http://${displayHost}:${port}/setup?token=${setupToken}`);
-	}
+	process.exit(1);
 }
-
-void new Application().initialize();

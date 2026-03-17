@@ -12,6 +12,8 @@ import { SqliteSessionStore } from 'src/database';
 export class AppBootstrap {
 	static configureSession(app: INestApplication, configService: AppConfigService, store: SqliteSessionStore, secret: string) {
 		const isProduction = configService.config.NODE_ENV === NodeEnv.production;
+		const isLocalhost = ['127.0.0.1', 'localhost'].includes(configService.config.APP_HOST);
+		const isSecure = isProduction && !isLocalhost;
 
 		app.use(
 			session({
@@ -21,7 +23,7 @@ export class AppBootstrap {
 				saveUninitialized: false,
 				cookie: {
 					httpOnly: true,
-					secure: isProduction,
+					secure: isSecure,
 					maxAge: configService.sessionMaxAgeMs
 				}
 			})

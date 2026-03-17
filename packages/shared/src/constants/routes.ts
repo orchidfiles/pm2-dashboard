@@ -5,6 +5,7 @@ export const routes = {
 		logout: '/api/auth/logout'
 	},
 	setup: {
+		status: '/api/setup/status',
 		checkToken: (token: string) => `/api/setup?token=${encodeURIComponent(token)}`,
 		complete: (token: string) => `/api/setup?token=${encodeURIComponent(token)}`
 	},

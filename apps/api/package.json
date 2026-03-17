@@ -41,6 +41,7 @@
 		"@types/node": "~22.0.0",
 		"@types/supertest": "~7.2.0",
 		"drizzle-kit": "~0.31.9",
+		"esbuild": "~0.27.4",
 		"supertest": "~7.2.2",
 		"tsc-alias": "~1.8.16",
 		"tsc-watch": "~6.2.1",

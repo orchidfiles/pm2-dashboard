@@ -1,8 +1,8 @@
-import { routes } from '@pm2-dashboard/shared';
+import { routes } from '@pm2-dashboard/shared/frontend';
 
 import { ApiClient } from './client';
 
-import type { Process, ProcessAction } from '@pm2-dashboard/shared';
+import type { Process, ProcessAction } from '@pm2-dashboard/shared/frontend';
 
 export class ProcessesApi {
 	static async fetchProcesses(): Promise<Process[]> {

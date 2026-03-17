@@ -30,7 +30,7 @@ async function handleSubmit(e: SubmitEvent) {
 
 <div class="h-dvh flex items-center justify-center bg-surface-950">
 	<div class="card preset-tonal-surface border border-surface-700/30 p-8 w-full max-w-sm">
-		<h1 class="h4 font-semibold mb-6 text-center">pm2-dashboard</h1>
+		<h1 class="h4 font-semibold mb-6 text-center">PM2 Dashboard</h1>
 
 		<form
 			onsubmit={handleSubmit}

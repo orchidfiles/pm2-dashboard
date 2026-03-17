@@ -15,6 +15,13 @@ export class EnvVariables {
 	@IsOptional()
 	API_PORT = 3100;
 
+	@Type(() => Number)
+	@IsNumber()
+	@Min(0)
+	@Max(65535)
+	@IsOptional()
+	WEB_PORT = 3101;
+
 	@IsString()
 	@IsOptional()
 	APP_HOST = '127.0.0.1';

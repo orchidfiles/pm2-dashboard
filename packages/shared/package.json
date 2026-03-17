@@ -5,6 +5,10 @@
 		".": {
 			"import": "./lib/index.js",
 			"types": "./lib/index.d.ts"
+		},
+		"./frontend": {
+			"import": "./lib/frontend.js",
+			"types": "./lib/frontend.d.ts"
 		}
 	},
 	"files": [

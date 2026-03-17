@@ -22,6 +22,14 @@ onMount(async () => {
 	}
 
 	try {
+		const setupStatus = await api.auth.getSetupStatus();
+
+		if (!setupStatus.completed) {
+			appState = 'setup';
+
+			return;
+		}
+
 		const user = await api.auth.getMe();
 
 		if (user) {

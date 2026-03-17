@@ -1,7 +1,8 @@
 import fs from 'node:fs';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 
-import { config } from 'dotenv';
+const require = createRequire(import.meta.url);
 
 export class Infra {
 	static loadEnv() {
@@ -14,6 +15,8 @@ export class Infra {
 		if (!fs.existsSync(envPath)) {
 			throw new Error(`Env file not found: ${envPath}`);
 		}
+
+		const { config } = require('dotenv') as typeof import('dotenv');
 
 		config({ path: envPath });
 	}

@@ -1,8 +1,8 @@
-import { routes } from '@pm2-dashboard/shared';
+import { routes } from '@pm2-dashboard/shared/frontend';
 
 import { ApiClient } from './client';
 
-import type { ActionResult, AuthUser, CheckTokenResult } from '@pm2-dashboard/shared';
+import type { ActionResult, AuthUser, CheckTokenResult, SetupStatusResult } from '@pm2-dashboard/shared/frontend';
 
 export class AuthApi {
 	static async getMe(): Promise<AuthUser | null> {
@@ -15,6 +15,10 @@ export class AuthApi {
 
 	static async logout(): Promise<void> {
 		await ApiClient.post<ActionResult>(routes.auth.logout);
+	}
+
+	static async getSetupStatus(): Promise<SetupStatusResult> {
+		return await ApiClient.get<SetupStatusResult>(routes.setup.status);
 	}
 
 	static async checkSetupToken(token: string): Promise<boolean> {

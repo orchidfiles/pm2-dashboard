@@ -6,7 +6,7 @@ import { api } from '$shared/api';
 import BulkActions from './BulkActions.svelte';
 import ProcessGrid from './ProcessGrid.svelte';
 
-import type { Process, ProcessAction } from '@pm2-dashboard/shared';
+import type { Process, ProcessAction } from '@pm2-dashboard/shared/frontend';
 
 let processes: Process[] = $state([]);
 let error: string | null = $state(null);

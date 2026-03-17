@@ -41,7 +41,9 @@ export class AllExceptionsFilter implements ExceptionFilter {
 		const request = ctx.getRequest<Request>();
 		const status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
 
-		console.error(exception);
+		if (status >= 500) {
+			console.error(exception);
+		}
 
 		const errorResponse: HttpExceptionDto = {
 			statusCode: status,

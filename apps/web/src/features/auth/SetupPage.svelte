@@ -46,15 +46,14 @@ async function handleSubmit(e: SubmitEvent) {
 
 <div class="h-dvh flex items-center justify-center bg-surface-950">
 	<div class="card preset-tonal-surface border border-surface-700/30 p-8 w-full max-w-sm">
-		<h1 class="h4 font-semibold mb-2 text-center">PM2 Dashboard</h1>
-		<p class="text-sm text-surface-400 text-center mb-6">Initial setup</p>
+		<h1 class="h4 font-semibold mb-6 text-center">PM2 Dashboard</h1>
 
 		{#if tokenValid === null}
-			<p class="text-sm text-surface-400 text-center">Verifying token…</p>
+			<p class=" text-surface-400 text-center">Verifying token…</p>
 		{:else if tokenValid === false}
-			<div class="card preset-tonal-error p-4 text-center">
-				<p class="font-medium text-sm">Setup URL not found</p>
-				<p class="text-sm opacity-70 mt-1">Open the setup URL printed in your terminal</p>
+			<div class="card preset-tonal-warning p-4 text-center">
+				<p class="font-medium">Setup required</p>
+				<p class="opacity-70 mt-1">Open the setup URL printed in your terminal to continue</p>
 			</div>
 		{:else}
 			<form
@@ -79,7 +78,7 @@ async function handleSubmit(e: SubmitEvent) {
 						autocomplete="new-password"
 						bind:value={form.password}
 						disabled={loading}
-						minlength="8"
+						minlength="5"
 						required />
 				</label>
 

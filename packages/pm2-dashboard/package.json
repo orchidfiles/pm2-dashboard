@@ -1,7 +1,7 @@
 {
   "name": "pm2-dashboard",
-  "version": "0.2.0",
-  "description": "Self-hosted web dashboard for PM2. Open source alternative to PM2 Plus. Authentication, process management, no cloud required.",
+  "version": "0.2.1",
+  "description": "Self-hosted web dashboard for PM2. No cloud, no subscriptions.",
   "keywords": [
     "pm2",
     "dashboard",

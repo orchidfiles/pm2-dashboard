@@ -9,7 +9,8 @@ export default createSvelteEslintConfig({
 		'$shared/*': ['./src/shared/*'],
 		'$components/*': ['./src/components/*'],
 		'$features/*': ['./src/features/*'],
-		'$layouts/*': ['./src/layouts/*']
+		'$layouts/*': ['./src/layouts/*'],
+		'$src/*': ['./src/*']
 	},
 	additionalRules: {
 		'import-x/no-unresolved': ['error', { ignore: ['^virtual:icons/'] }]

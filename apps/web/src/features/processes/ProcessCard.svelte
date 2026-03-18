@@ -31,7 +31,7 @@ async function handleAction(action: ProcessAction) {
 			<span class="font-semibold text-sm truncate">{proc.name}</span>
 			<span class="text-xs text-surface-400">pid #{proc.id}</span>
 		</div>
-		<span class="badge {ProcessFormatter.statusPreset(proc.status)} text-xs shrink-0 capitalize">
+		<span class="badge {ProcessFormatter.statusPreset(proc.status)} text-xs shrink-0 capitalize ring-1 ring-surface-400/50">
 			{proc.status}
 		</span>
 	</div>
@@ -44,11 +44,11 @@ async function handleAction(action: ProcessAction) {
 		</div>
 		<div class="card preset-filled-surface-800 p-3 rounded-lg flex flex-col gap-1">
 			<span class="text-[10px] uppercase tracking-widest text-surface-400 font-medium">Memory</span>
-			<span class="text-lg font-semibold tabular-nums">{proc.memory ? ProcessFormatter.memory(proc.memory) : '—'}</span>
+			<span class="text-lg font-semibold tabular-nums">{ProcessFormatter.memory(proc.memory)}</span>
 		</div>
 		<div class="card preset-filled-surface-800 p-3 rounded-lg flex flex-col gap-1">
 			<span class="text-[10px] uppercase tracking-widest text-surface-400 font-medium">Uptime</span>
-			<span class="text-sm font-medium">{proc.uptime ? ProcessFormatter.uptime(proc.uptime) : '—'}</span>
+			<span class="text-sm font-medium">{ProcessFormatter.uptime(proc.uptime)}</span>
 		</div>
 		<div class="card preset-filled-surface-800 p-3 rounded-lg flex flex-col gap-1">
 			<span class="text-[10px] uppercase tracking-widest text-surface-400 font-medium">Restarts</span>

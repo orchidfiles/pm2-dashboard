@@ -4,6 +4,10 @@ export class ProcessFormatter {
 	}
 
 	public static uptime(ms: number): string {
+		if (!ms) {
+			return '0m';
+		}
+
 		const sec = Math.floor((Date.now() - ms) / 1000);
 		const h = Math.floor(sec / 3600);
 		const m = Math.floor((sec % 3600) / 60);

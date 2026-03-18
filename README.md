@@ -6,7 +6,10 @@
 [![license](https://img.shields.io/npm/l/pm2-dashboard)](./LICENSE)
 [![last commit](https://img.shields.io/github/last-commit/orchidfiles/pm2-dashboard)](https://github.com/orchidfiles/pm2-dashboard)
 
-Self-hosted web dashboard for PM2. Open source alternative to PM2 Plus. Installs as a single npm package, runs on the same server as PM2. No cloud, no subscriptions, no external dependencies. No separate database server: stores data in a local SQLite file.
+Self-hosted web dashboard for PM2. No cloud, no subscriptions.  
+Installs as a single npm package, runs on the same server as PM2.
+
+![pm2-dashboard process list](https://raw.githubusercontent.com/orchidfiles/pm2-dashboard/main/docs/screens/processes.png)
 
 > Until version 1.0.0, this project is under active development. Production use is possible, but expect breaking changes and missing features.
 
@@ -104,6 +107,22 @@ For public access, place the dashboard behind a trusted reverse proxy or inside 
 - `apps/web`: browser UI built with Svelte 5
 - `packages/shared`: code shared between API and frontend
 - `packages/pm2-dashboard`: published npm package and CLI entrypoint
+
+## Development
+
+```bash
+git clone https://github.com/orchidfiles/pm2-dashboard.git
+cd pm2-dashboard
+pnpm install
+```
+
+VSCode tasks are configured in `.vscode/tasks.json`. Run `build-watch all` to compile dev-kit, shared, and API in watch mode. Run `start all` to start API and web dev server.
+
+Build the npm package from source:
+
+```bash
+pnpm run package:build
+```
 
 ## Reverse proxy (nginx)
 

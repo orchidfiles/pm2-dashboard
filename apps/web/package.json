@@ -4,13 +4,15 @@
 	"type": "module",
 	"scripts": {
 		"start": "vite",
+		"start:mock": "VITE_MOCK=true vite",
 		"build": "vite build",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix"
 	},
 	"dependencies": {
-		"@pm2-dashboard/shared": "workspace:*"
+		"@pm2-dashboard/shared": "workspace:*",
+		"date-fns": "~4.1.0"
 	},
 	"devDependencies": {
 		"@iconify-json/lucide": "~1.2.97",

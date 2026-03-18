@@ -6,7 +6,8 @@
 			"$shared/*": ["src/shared/*"],
 			"$components/*": ["src/components/*"],
 			"$features/*": ["src/features/*"],
-			"$layouts/*": ["src/layouts/*"]
+			"$layouts/*": ["src/layouts/*"],
+			"$src/*": ["src/*"]
 		},
 		"types": ["node", "vite/client"],
 		"verbatimModuleSyntax": true,

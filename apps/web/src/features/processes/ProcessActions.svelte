@@ -13,7 +13,7 @@ let { status, loading, onAction }: Props = $props();
 <div class="btn-group flex gap-1">
 	{#if status !== 'online'}
 		<button
-			class="btn btn-sm preset-filled-surface-700"
+			class="btn btn-sm preset-outlined-surface-400-600"
 			disabled={loading}
 			onclick={() => onAction(ProcessAction.Start)}>
 			Start
@@ -22,17 +22,19 @@ let { status, loading, onAction }: Props = $props();
 
 	{#if status === 'online'}
 		<button
-			class="btn btn-sm preset-filled-surface-700"
+			class="btn btn-sm preset-outlined-surface-400-600"
 			disabled={loading}
 			onclick={() => onAction(ProcessAction.Stop)}>
 			Stop
 		</button>
 	{/if}
 
-	<button
-		class="btn btn-sm preset-filled-surface-700"
-		disabled={loading}
-		onclick={() => onAction(ProcessAction.Restart)}>
-		Restart
-	</button>
+	{#if status === 'online'}
+		<button
+			class="btn btn-sm preset-outlined-surface-400-600"
+			disabled={loading}
+			onclick={() => onAction(ProcessAction.Restart)}>
+			Restart
+		</button>
+	{/if}
 </div>

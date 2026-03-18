@@ -18,7 +18,8 @@ export default defineConfig(({ mode }) => {
 				$shared: fileURLToPath(new URL('./src/shared', import.meta.url)),
 				$components: fileURLToPath(new URL('./src/components', import.meta.url)),
 				$features: fileURLToPath(new URL('./src/features', import.meta.url)),
-				$layouts: fileURLToPath(new URL('./src/layouts', import.meta.url))
+				$layouts: fileURLToPath(new URL('./src/layouts', import.meta.url)),
+				$src: fileURLToPath(new URL('./src', import.meta.url))
 			}
 		},
 		server: {

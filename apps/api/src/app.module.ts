@@ -1,6 +1,7 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 
 import { ClientInfoMiddleware } from 'common/middlewares/client-info.middleware';
+import { RequestLoggerMiddleware } from 'common/middlewares/request-logger.middleware';
 import { AppConfigModule } from 'core/app-config/app-config.module';
 import { AppDatabaseModule } from 'core/app-database/app-database.module';
 import { AppSettingsModule } from 'core/app-settings/app-settings.module';
@@ -24,6 +25,6 @@ import { WebsocketModule } from 'modules/websocket/websocket.module';
 })
 export class AppModule implements NestModule {
 	configure(consumer: MiddlewareConsumer) {
-		consumer.apply(ClientInfoMiddleware).forRoutes({ path: '*path', method: RequestMethod.ALL });
+		consumer.apply(ClientInfoMiddleware, RequestLoggerMiddleware).forRoutes({ path: '*path', method: RequestMethod.ALL });
 	}
 }
